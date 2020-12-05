@@ -1,0 +1,164 @@
+<link rel="stylesheet" href="assets/css/lib/datatable/dataTables.bootstrap.min.css">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+<% 
+function setDate(s) {
+    var date = new Date(s);
+    var ngay = (date.getDate() <= 9) ? "0"+date.getDate() : date.getDate();
+    return ngay+"/"+(date.getMonth()+1)+"/"+date.getFullYear(); 
+}
+%> 
+<div class="content">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-md-12 m-0 p-0">
+                <% if (thongBao != undefined) { %>
+                <% if (thongBao == "Thêm Thành Công" ) { %>
+                <div class="row alert alert-success">
+                    <%= thongBao %>
+                </div>
+                <% } else { %>
+                <div class="row alert alert-danger">
+                    <%= thongBao %>
+                </div>
+                <% } %>
+                <% } %>
+                <div class="card">
+                    <div class="card-header row m-0">
+                        <strong class="card-title col-6 m-0 p-0">Danh Sách Nhân Viên</strong>
+                        <div class="col-6 text-right m-0 p-0">
+                            <button class="rounded rounded-circle btn btn-success" data-toggle="modal"
+                                data-target="#add"><i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+
+                    </div>
+                    <div class="card-body pl-0 ml-0 mr-0 pr-0">
+                        <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Tên</th>
+                                    <th>Giới Tính</th>
+                                    <th>Ngày Sinh</th>
+                                    <th>Quê Quán</th>
+                                    <th>CMND</th>
+                                    <th>SĐT</th>
+                                    <th>Địa Chỉ</th>
+                                    <th>Tài Khoản</th>
+                                    <th>Chức Năng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% nhanVien.forEach(function(item) { %>
+                                <tr>
+                                    <td><%- item.ten %></td>
+                                    <td><%- item.gioiTinh %> </td>
+                                    <td><%- setDate(item.ngaySinh) %></td>
+                                    <td><%- item.queQuan %></td>
+                                    <td><%- item.cmnd %></td>
+                                    <td><%- item.sdt %></td>
+                                    <td><%- item.diaChi %></td>
+                                    <td><%- item.taiKhoan %></td>
+                                    <td>
+                                        <button value="<%- item._id %>" name="editlh" data-toggle="modal"
+                                            data-target="#exampleModal<%- item._id %>" class="btn btn-warning text-light">
+                                            Sửa
+                                        </button>
+                                        <a class="btn btn-danger text-light" data-toggle="modal"
+                                            data-target="#Modal<%- item._id %>">Xóa</a>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- .animated -->
+</div><!-- .content -->
+
+<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title d-inline-block" id="smallmodalLabel">Thêm Nhân Viên</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form class="p-2" method="post" action="/admin/staff/add">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="font-weight-bold">Tên Nhân Viên</label>
+                        <input type="text" class="form-control" name="ten" value="" />
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold">Giới Tính</label>
+                        <select class="form-control" name="gioiTinh">
+                            <option value="Nam">Nam</option>
+                            <option value="Nu">Nữ</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold">Ngày Sinh</label>
+                        <input type="date" class="form-control" name="ngaySinh" value="" />
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold">Quê Quán</label>
+                        <input type="text" class="form-control" name="queQuan" value="" />
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold">Chứng Minh Nhân Dân</label>
+                        <input type="text" class="form-control" name="cmnd" value="" />
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold">Số Điện Thoại</label>
+                        <input type="text" class="form-control" name="sdt" value="" />
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold">Địa Chỉ</label>
+                        <input type="text" class="form-control" name="diaChi" value="" />
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold">Tài Khoản</label>
+                        <input type="text" class="form-control" name="taiKhoan" value="" />
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold">Mật Khẩu</label>
+                        <input type="text" class="form-control" name="matKhau" value="" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success w-25">Thêm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
+<script src="assets/js/main.js"></script>
+
+
+<script src="assets/js/lib/data-table/datatables.min.js"></script>
+<script src="assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+<script src="assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+<script src="assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
+<script src="assets/js/lib/data-table/jszip.min.js"></script>
+<script src="assets/js/lib/data-table/vfs_fonts.js"></script>
+<script src="assets/js/lib/data-table/buttons.html5.min.js"></script>
+<script src="assets/js/lib/data-table/buttons.print.min.js"></script>
+<script src="assets/js/lib/data-table/buttons.colVis.min.js"></script>
+<script src="assets/js/init/datatables-init.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#bootstrap-data-table-export').DataTable();
+    });
+</script>
