@@ -7,12 +7,12 @@ var router = express.Router();
 router.get("/", adminController.index)
 router.get("/staff", adminController.staff)
 router.post("/staff/add", adminController.addStaff)
+router.post("/staff/edit", adminController.editStaff)
+router.get("/delete/:table/:id", adminController.delete)
 
-// router.get("/logout", hControle.logout)
-// router.get("/rooms" , hControle.roomAll)
-// router.get("/rooms/:id" , hControle.room_id)
-// router.get("/book/:id" , hControle.bookingView)
-// router.post("/create", hControle.creatUser)
+// router.get("/rooms/:id" , adminController.room_id)
+// router.get("/book/:id" , adminController.bookingView)
+// router.post("/create", adminController.creatUser)
 
 
 module.exports = router;

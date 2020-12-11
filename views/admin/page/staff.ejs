@@ -1,20 +1,39 @@
 <link rel="stylesheet" href="assets/css/lib/datatable/dataTables.bootstrap.min.css">
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+<script>
+    $(document).ready(function () {
+        $("button[name='close']").click(function () {
+            $("div.alert").fadeTo(500, 0, function () {
+                $(this).remove();
+            });
+        });
+    });
+</script>
 <% 
 function setDate(s) {
     var date = new Date(s);
     var ngay = (date.getDate() <= 9) ? "0"+date.getDate() : date.getDate();
     return ngay+"/"+(date.getMonth()+1)+"/"+date.getFullYear(); 
 }
-%> 
+
+function convert(str) {
+  var date = new Date(str),
+    mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+    day = ("0" + date.getDate()).slice(-2);
+  return [date.getFullYear(), mnth, day].join("-");
+}
+%>
 <div class="content">
     <div class="animated fadeIn">
         <div class="row">
             <div class="col-md-12 m-0 p-0">
                 <% if (thongBao != undefined) { %>
-                <% if (thongBao == "Thêm Thành Công" ) { %>
-                <div class="row alert alert-success">
+                <% if (thongBao.indexOf("Thành Công") != -1) { %>
+                <div class="row alert alert-success ml-1 mr-1">
                     <%= thongBao %>
+                    <button type="button" name="close" class="close ml-auto">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <% } else { %>
                 <div class="row alert alert-danger">
@@ -24,7 +43,8 @@ function setDate(s) {
                 <% } %>
                 <div class="card">
                     <div class="card-header row m-0">
-                        <strong class="card-title col-6 m-0 p-0">Danh Sách Nhân Viên</strong>
+                        <strong class="card-title col-6 m-0 p-0" style="margin-top: 9px !important;">Danh Sách Nhân
+                            Viên</strong>
                         <div class="col-6 text-right m-0 p-0">
                             <button class="rounded rounded-circle btn btn-success" data-toggle="modal"
                                 data-target="#add"><i class="fa fa-plus"></i>
@@ -49,7 +69,7 @@ function setDate(s) {
                             </thead>
                             <tbody>
                                 <% nhanVien.forEach(function(item) { %>
-                                <tr>
+                                <tr id="<%= item.id %>">
                                     <td><%- item.ten %></td>
                                     <td><%- item.gioiTinh %> </td>
                                     <td><%- setDate(item.ngaySinh) %></td>
@@ -59,14 +79,104 @@ function setDate(s) {
                                     <td><%- item.diaChi %></td>
                                     <td><%- item.taiKhoan %></td>
                                     <td>
-                                        <button value="<%- item._id %>" name="editlh" data-toggle="modal"
-                                            data-target="#exampleModal<%- item._id %>" class="btn btn-warning text-light">
-                                            Sửa
-                                        </button>
-                                        <a class="btn btn-danger text-light" data-toggle="modal"
-                                            data-target="#Modal<%- item._id %>">Xóa</a>
+                                        <a value="<%- item._id %>" data-toggle="modal"
+                                            data-target="#exampleModal<%- item._id %>"
+                                            class="btn btn-warning text-light pt-1 pb-1 pr-2 pl-2 mb-1"><i
+                                                class="fa fa-pencil-square"></i></a>
+                                        <a class="btn btn-danger text-light pt-1 pb-1 pr-2 pl-2 mb-1" data-toggle="modal"
+                                            data-target="#Modal<%- item._id %>"><i class="fa fa-trash-o"></i></a>
                                     </td>
                                 </tr>
+                                <div class="modal fade" id="Modal<%- item._id %>" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title d-inline" id="exampleModalLabel">Xóa Nhân Viên
+                                                </h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Xóa Nhân Viên <%- item.ten %>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Hủy</button>
+                                                <a href="/admin/delete/NhanVien/<%- item._id %>" data-dismiss="modal"
+                                                    class="btn btn-danger">Xóa</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal fade" id="exampleModal<%- item._id %>" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title d-inline" id="exampleModalLabel">Chỉnh Sửa Nhân
+                                                    Viên</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form class="p-2" method="post" action="/admin/staff/edit">
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold">Tên Nhân Viên</label>
+                                                        <input type="text" class="form-control" name="ten"
+                                                            value="<%- item.ten %>" />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold">Giới Tính</label>
+                                                        <select class="form-control" name="gioiTinh">
+                                                            <option value="Nam"
+                                                                <% if(item.gioiTinh == 'Nam'){ %> selected<% } %>>Nam</option>
+                                                            <option value="Nu"
+                                                                <% if(item.gioiTinh == 'Nu'){ %> selected<% } %>>Nữ</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold">Ngày Sinh</label>
+                                                        <input type="date" class="form-control" name="ngaySinh"
+                                                            value="<%= convert(item.ngaySinh) %>" />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold">Quê Quán</label>
+                                                        <input type="text" class="form-control" name="queQuan"
+                                                            value="<%- item.queQuan %>" />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold">Chứng Minh Nhân Dân</label>
+                                                        <input type="text" class="form-control" name="cmnd"
+                                                            value="<%- item.cmnd %>" />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold">Số Điện Thoại</label>
+                                                        <input type="text" class="form-control" name="sdt"
+                                                            value="<%- item.sdt %>" />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold">Địa Chỉ</label>
+                                                        <input type="text" class="form-control" name="diaChi"
+                                                            value="<%- item.diaChi %>" />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold">Tài Khoản</label>
+                                                        <input type="text" class="form-control" name="taiKhoan"
+                                                            value="<%- item.taiKhoan %>" />
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button value="<%= item._id %>" type="submit" name="edit" class="btn btn-success w-25">Sửa</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                                 <% }) %>
                             </tbody>
                         </table>
