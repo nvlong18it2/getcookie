@@ -1,4 +1,5 @@
 var NhanVien = require("../models/nhanvien.model.js");
+var SanPham = require("../models/sanpham.model.js");
 
 module.exports = {
     index: (req, res) => {
