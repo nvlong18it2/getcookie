@@ -1,6 +1,7 @@
 var NhanVien = require("../models/nhanvien.model.js");
 var SanPham = require("../models/sanpham.model.js");
 var NhaCungCap = require("../models/nhacungcap.model.js");
+var Kho = require("../models/kho.model.js");
 module.exports = {
     index: (req, res) => {
         res.render('admin/layout', {
@@ -147,6 +148,50 @@ module.exports = {
             res.redirect("/admin/suppliers");
         })
     },
+    warehouse: (req, res) => {
+        Kho.find({})
+            .then((kho) => {
+                res.render('admin/layout', {
+                    title: 'Admin | Kho',
+                    page: "warehouse",
+                    kho: kho,
+                    thongBao: res.locals.thongBao,
+                })
+            }).catch(err => console.log(err));
+    },
+    addWarehouse: (req, res) => {
+        new Kho(req.body).save().then((kho) =>{
+            if(kho) {
+                res.cookie('thongBao', "Thêm Thành Công", {
+                    signed: true
+                });
+                res.redirect("/admin/warehouse");
+            }
+        }).catch((err) => {
+            res.cookie('thongBao', "Thêm Thất Bại", {
+                signed: true
+            });
+            res.redirect("/admin/warehouse");
+        });
+    },
+
+    editWarehouse: (req, res) =>{
+        var id = req.body.edit
+        delete req.body.edit;
+        Kho.updateOne({ _id: id}, req.body, (err, result) =>{
+            if(err) throw err;
+            if (result.ok == 1) {
+                res.cookie('thongBao', "Sửa Thành Công", {
+                    signed: true
+                });
+            } else {
+                res.cookie('thongBao', "Sửa Thành Công", {
+                    signed: true
+                });
+            }
+            res.redirect("/admin/warehouse");
+        })
+    },
     delete: (req, res) => {
         var table = req.params.table;
         var id = req.params.id;
@@ -198,6 +243,21 @@ module.exports = {
                         });
                     }
                     res.redirect("/admin/suppliers");    
+                });
+                break;
+            case "Kho":
+                Kho.deleteOne({ _id: id }, (err,result) => {
+                    if (err) throw err;
+                    if (result.ok == 1) {
+                        res.cookie('thongBao', "Xóa Thành Công", {
+                            signed: true
+                        });
+                    } else {
+                        res.cookie('thongBao', "Xóa Thành Công", {
+                            signed: true
+                        });
+                    }
+                    res.redirect("/admin/warehouse");    
                 });
                 break;
         }
