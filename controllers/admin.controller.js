@@ -7,7 +7,7 @@ module.exports = {
             title: 'Admin | Home',
             page: "index",
         })
-    }, // lưu đi long
+    }, 
 
     staff: (req, res) => {
         NhanVien.find({})
@@ -22,8 +22,8 @@ module.exports = {
     },
 
     addStaff: (req, res) => {
-        new NhanVien(req.body).save().then((nhanVien) =>{
-            if(nhanVien) {
+        new NhanVien(req.body).save().then((nhanVien) => {
+            if (nhanVien) {
                 res.cookie('thongBao', "Thêm Thành Công", {
                     signed: true
                 });
@@ -37,11 +37,13 @@ module.exports = {
         });
     },
 
-    editStaff: (req, res) =>{
+    editStaff: (req, res) => {
         var id = req.body.edit
         delete req.body.edit;
-        NhanVien.updateOne({ _id: id}, req.body, (err, result) =>{
-            if(err) throw err;
+        NhanVien.updateOne({
+            _id: id
+        }, req.body, (err, result) => {
+            if (err) throw err;
             if (result.ok == 1) {
                 res.cookie('thongBao', "Sửa Thành Công", {
                     signed: true
@@ -67,8 +69,8 @@ module.exports = {
     },
 
     addProducts: (req, res) => {
-        new SanPham(req.body).save().then((sanPham) =>{
-            if(sanPham) {
+        new SanPham(req.body).save().then((sanPham) => {
+            if (sanPham) {
                 res.cookie('thongBao', "Thêm Thành Công", {
                     signed: true
                 });
@@ -82,11 +84,13 @@ module.exports = {
         });
     },
 
-    editProducts: (req, res) =>{
+    editProducts: (req, res) => {
         var id = req.body.edit
         delete req.body.edit;
-        SanPham.updateOne({ _id: id}, req.body, (err, result) =>{
-            if(err) throw err;
+        SanPham.updateOne({
+            _id: id
+        }, req.body, (err, result) => {
+            if (err) throw err;
             if (result.ok == 1) {
                 res.cookie('thongBao', "Sửa Thành Công", {
                     signed: true
@@ -148,7 +152,9 @@ module.exports = {
         var id = req.params.id;
         switch (table) {
             case "NhanVien":
-                NhanVien.deleteOne({ _id: id }, (err,result) => {
+                NhanVien.deleteOne({
+                    _id: id
+                }, (err, result) => {
                     if (err) throw err;
                     if (result.ok == 1) {
                         res.cookie('thongBao', "Xóa Thành Công", {
@@ -159,7 +165,7 @@ module.exports = {
                             signed: true
                         });
                     }
-                    res.redirect("/admin/staff");    
+                    res.redirect("/admin/staff");
                 });
                 break
                 
