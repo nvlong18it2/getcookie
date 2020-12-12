@@ -5,6 +5,7 @@ module.exports = {
         res.render("login/layout",{
             title: "Sign in",
             page: "index",
+            thongBao: res.locals.thongBao,
         })
     },
 
@@ -20,7 +21,23 @@ module.exports = {
             });
             res.redirect('/admin')
         } else {
-            
+            NhanVien.findOne({taiKhoan: taiKhoan, matKhau: matKhau},(err, result) => {
+                if (err) throw err;
+                if (result != null) {
+                    res.cookie('user', result.ten, {
+                        signed: true
+                    });
+                    res.cookie('roles', 1, {
+                        signed: true
+                    });
+                    res.redirect('/admin')
+                } else {
+                    res.cookie('thongBao', "Tài Khoản hoặc mật khẩu không đúng", {
+                        signed: true
+                    });
+                    res.redirect('/login')
+                }                
+            })
         }
     } 
 }

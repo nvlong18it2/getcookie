@@ -25,14 +25,11 @@ app.use(bodyParser.urlencoded({
 	extended: false
 }))
 app.use("/admin", check ,adminRouter);
-app.use("/login", loginRouter);
+app.use("/login", notification ,loginRouter);
 
 app.use(bodyParser.json())
 
-
 http.listen(port, () => console.log(`App listening at http://localhost:${port}`));
-
-
 
 mongoose.connect(process.env.DB_URL, {
 		useNewUrlParser: true,
@@ -47,6 +44,14 @@ function check (req, res, next) {
         res.redirect('/login');
         return;
     }
+    res.locals.user = req.signedCookies.user;
+    if (req.signedCookies.thongBao != undefined) {
+        res.locals.thongBao = req.signedCookies.thongBao;
+        res.clearCookie("thongBao");
+    }
+    next();
+}
+function notification (req, res, next) {
     res.locals.user = req.signedCookies.user;
     if (req.signedCookies.thongBao != undefined) {
         res.locals.thongBao = req.signedCookies.thongBao;
