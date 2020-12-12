@@ -7,7 +7,7 @@ module.exports = {
             title: 'Admin | Home',
             page: "index",
         })
-    }, 
+    }, // lưu đi long
 
     staff: (req, res) => {
         NhanVien.find({})
@@ -118,6 +118,7 @@ module.exports = {
                     }
                     res.redirect("/admin/staff");    
                 });
+                break
                 
                 case "SanPham":
                     SanPham.deleteOne({ _id: id }, (err,result) => {
@@ -131,7 +132,7 @@ module.exports = {
                                 signed: true
                             });
                         }
-                        res.redirect("/admin/sanpham");    
+                        res.redirect("/admin/products");    
                     });
                     break;
         }
