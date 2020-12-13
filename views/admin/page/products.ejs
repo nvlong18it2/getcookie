@@ -1,9 +1,5 @@
 <link rel="stylesheet" href="assets/css/lib/datatable/dataTables.bootstrap.min.css">
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-<script>
-    $(document).ready(function () {
-    });
-</script>
 <% 
 function setDate(s) {
     var date = new Date(s);
@@ -38,7 +34,8 @@ function convert(str) {
                 <% } %>
                 <div class="card">
                     <div class="card-header row m-0">
-                        <strong class="card-title col-6 m-0 p-0" style="margin-top: 9px !important;">DANH SÁCH SẢN PHẨM</strong>
+                        <strong class="card-title col-6 m-0 p-0" style="margin-top: 9px !important;">DANH SÁCH SẢN
+                            PHẨM</strong>
                         <div class="col-6 text-right m-0 p-0">
                             <button class="rounded rounded-circle btn btn-success" data-toggle="modal"
                                 data-target="#add"><i class="fa fa-plus"></i>
@@ -84,14 +81,15 @@ function convert(str) {
                                     <td><%- item.hutNuoc %></td>
                                     <td><%- item.mauSac %></td>
                                     <td><%- item.xuatXu %></td>
-                                   
+
                                     <td>
                                         <a value="<%- item._id %>" data-toggle="modal"
                                             data-target="#exampleModal<%- item._id %>"
                                             class="btn btn-warning text-light pt-1 pb-1 pr-2 pl-2 mb-1"><i
                                                 class="fa fa-pencil-square"></i></a>
-                                        <a class="btn btn-danger text-light pt-1 pb-1 pr-2 pl-2 mb-1" data-toggle="modal"
-                                            data-target="#Modal<%- item._id %>"><i class="fa fa-trash-o"></i></a>
+                                        <a class="btn btn-danger text-light pt-1 pb-1 pr-2 pl-2 mb-1"
+                                            data-toggle="modal" data-target="#Modal<%- item._id %>"><i
+                                                class="fa fa-trash-o"></i></a>
                                     </td>
                                 </tr>
                                 <div class="modal fade" id="Modal<%- item._id %>" tabindex="-1" role="dialog"
@@ -123,7 +121,8 @@ function convert(str) {
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title d-inline" id="exampleModalLabel">Chỉnh sửa sản phẩm</h5>
+                                                <h5 class="modal-title d-inline" id="exampleModalLabel">Chỉnh sửa sản
+                                                    phẩm</h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
@@ -143,69 +142,83 @@ function convert(str) {
                                                                 value="<%- item.ten %>" />
                                                         </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label class="font-weight-bold">Đơn vị</label>
-                                                        <input type="text" class="form-control" name="donVi"
-                                                            value="<%- item.donVi %>" />
+                                                    <div class="row">
+                                                        <div class="form-group col-6">
+                                                            <label class="font-weight-bold">Đơn vị</label>
+                                                            <input type="text" class="form-control" name="donVi"
+                                                                value="<%- item.donVi %>" />
+                                                        </div>
+                                                        <div class="form-group col-6">
+                                                            <label class="font-weight-bold">Kích thước</label>
+                                                            <input type="text" class="form-control" name="kichThuoc"
+                                                                value="<%- item.kichThuoc %>" />
+                                                        </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label class="font-weight-bold">Kích thước</label>
-                                                        <input type="text" class="form-control" name="kichThuoc"
-                                                        value="<%- item.kichThuoc %>" />
+                                                    <div class="row">
+                                                        <div class="form-group col-6">
+                                                            <label class="font-weight-bold">Chủng loại</label>
+                                                            <input type="text" class="form-control" name="chungLoai"
+                                                                value="<%- item.chungLoai %>" />
+                                                        </div>
+                                                        <div class="form-group col-6">
+                                                            <label class="font-weight-bold">Cường độ chịu nén</label>
+                                                            <input type="text" class="form-control"
+                                                                name="cuongDoChiuNen"
+                                                                value="<%- item.cuongDoChiuNen %>" />
+                                                        </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label class="font-weight-bold">Chủng loại</label>
-                                                        <input type="text" class="form-control" name="chungLoai"
-                                                            value="<%- item.chungLoai %>" />
+                                                    <div class="row">
+                                                        <div class="form-group col-6">
+                                                            <label class="font-weight-bold">Trọng lượng</label>
+                                                            <input type="text" class="form-control" name="trongLuong"
+                                                                value="<%- item.trongLuong %>" />
+                                                        </div>
+                                                        <div class="form-group col-6">
+                                                            <label class="font-weight-bold">Mã sản phẩm</label>
+                                                            <input type="text" class="form-control" name="maSanPham"
+                                                                value="<%- item.maSanPham %>" />
+                                                        </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label class="font-weight-bold">Cường độ chịu nén</label>
-                                                        <input type="text" class="form-control" name="cuongDoChiuNen"
-                                                            value="<%- item.cuongDoChiuNen %>" />
+                                                    <div class="row">
+                                                        <div class="form-group col-6">
+                                                            <label class="font-weight-bold">Tiêu chuẩn</label>
+                                                            <input type="text" class="form-control" name="tieuChuan"
+                                                                value="<%- item.tieuChuan %>" />
+                                                        </div>
+                                                        <div class="form-group col-6">
+                                                            <label class="font-weight-bold">Chất liệu</label>
+                                                            <input type="text" class="form-control" name="chatLieu"
+                                                                value="<%- item.chatLieu %>" />
+                                                        </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label class="font-weight-bold">Trọng lượng</label>
-                                                        <input type="text" class="form-control" name="trongLuong"
-                                                            value="<%- item.trongLuong %>" />
+                                                    <div class="row">
+                                                        <div class="form-group col-6">
+                                                            <label class="font-weight-bold">Độ rộng</label>
+                                                            <input type="text" class="form-control" name="doRong"
+                                                                value="<%- item.doRong %>" />
+                                                        </div>
+                                                        <div class="form-group col-6">
+                                                            <label class="font-weight-bold">Độ hút nước</label>
+                                                            <input type="text" class="form-control" name="hutNuoc"
+                                                                value="<%- item.hutNuoc %>" />
+                                                        </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label class="font-weight-bold">Mã sản phẩm</label>
-                                                        <input type="text" class="form-control" name="maSanPham"
-                                                            value="<%- item.maSanPham %>" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="font-weight-bold">Tiêu chuẩn</label>
-                                                        <input type="text" class="form-control" name="tieuChuan"
-                                                            value="<%- item.tieuChuan %>" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="font-weight-bold">Chất liệu</label>
-                                                        <input type="text" class="form-control" name="chatLieu"
-                                                            value="<%- item.chatLieu %>" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="font-weight-bold">Độ rộng</label>
-                                                        <input type="text" class="form-control" name="doRong"
-                                                            value="<%- item.doRong %>" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="font-weight-bold">Độ hút nước</label>
-                                                        <input type="text" class="form-control" name="hutNuoc"
-                                                            value="<%- item.hutNuoc %>" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="font-weight-bold">Màu sắc</label>
-                                                        <input type="text" class="form-control" name="mauSac"
-                                                            value="<%- item.mauSac %>" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="font-weight-bold">Xuất xứ</label>
-                                                        <input type="text" class="form-control" name="xuatXu"
-                                                            value="<%- item.xuatXu %>" />
+                                                    <div class="row">
+                                                        <div class="form-group col-6">
+                                                            <label class="font-weight-bold">Màu sắc</label>
+                                                            <input type="text" class="form-control" name="mauSac"
+                                                                value="<%- item.mauSac %>" />
+                                                        </div>
+                                                        <div class="form-group col-6">
+                                                            <label class="font-weight-bold">Xuất xứ</label>
+                                                            <input type="text" class="form-control" name="xuatXu"
+                                                                value="<%- item.xuatXu %>" />
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button value="<%= item._id %>" type="submit" name="edit" class="btn btn-success w-25">Sửa</button>
+                                                    <button value="<%= item._id %>" type="submit" name="edit"
+                                                        class="btn btn-success w-25">Sửa</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -222,8 +235,8 @@ function convert(str) {
 </div><!-- .content -->
 
 <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content ">
             <div class="modal-header">
                 <h5 class="modal-title d-inline-block" id="smallmodalLabel">Thêm sản phẩm</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -232,77 +245,76 @@ function convert(str) {
             </div>
             <form class="p-2" method="post" action="/admin/products/add">
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label class="font-weight-bold">Tên sản phẩm</label>
-                        <input type="text" class="form-control" name="ten"
-                            value="" />
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label class="font-weight-bold">Tên sản phẩm</label>
+                            <input type="text" class="form-control" name="ten" value="" />
+                        </div>
+                        <div class="form-group col-6">
+                            <label class="font-weight-bold">Nhà cung cấp</label>
+                            <input type="text" class="form-control" name="id_nhaCungCap" value="" />
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="font-weight-bold">Nhà cung cấp</label>
-                        <input type="text" class="form-control" name="id_nhaCungCap"
-                        value="" />
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label class="font-weight-bold">Đơn vị</label>
+                            <input type="text" class="form-control" name="donVi" value="" />
+                        </div>
+                        <div class="form-group col-6">
+                            <label class="font-weight-bold">Kích thước</label>
+                            <input type="text" class="form-control" name="kichThuoc" value="" />
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="font-weight-bold">Đơn vị</label>
-                        <input type="text" class="form-control" name="donVi"
-                        value="" />
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label class="font-weight-bold">Chủng loại</label>
+                            <input type="text" class="form-control" name="chungLoai" value="" />
+                        </div>
+                        <div class="form-group col-6">
+                            <label class="font-weight-bold">Cường độ chịu nén</label>
+                            <input type="text" class="form-control" name="cuongDoChiuNen" value="" />
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="font-weight-bold">Kích thước</label>
-                        <input type="text" class="form-control" name="kichThuoc"
-                        value="" />
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label class="font-weight-bold">Trọng lượng</label>
+                            <input type="text" class="form-control" name="trongLuong" value="" />
+                        </div>
+                        <div class="form-group col-6">
+                            <label class="font-weight-bold">Mã sản phẩm</label>
+                            <input type="text" class="form-control" name="maSanPham" value="" />
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="font-weight-bold">Chủng loại</label>
-                        <input type="text" class="form-control" name="chungLoai"
-                        value="" />
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label class="font-weight-bold">Tiêu chuẩn</label>
+                            <input type="text" class="form-control" name="tieuChuan" value="" />
+                        </div>
+                        <div class="form-group col-6">
+                            <label class="font-weight-bold">Chất liệu</label>
+                            <input type="text" class="form-control" name="chatLieu" value="" />
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="font-weight-bold">Cường độ chịu nén</label>
-                        <input type="text" class="form-control" name="cuongDoChiuNen"
-                        value="" />
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label class="font-weight-bold">Độ rộng</label>
+                            <input type="text" class="form-control" name="doRong" value="" />
+                        </div>
+                        <div class="form-group col-6">
+                            <label class="font-weight-bold">Độ hút nước</label>
+                            <input type="text" class="form-control" name="hutNuoc" value="" />
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="font-weight-bold">Trọng lượng</label>
-                        <input type="text" class="form-control" name="trongLuong"
-                        value="" />
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label class="font-weight-bold">Màu sắc</label>
+                            <input type="text" class="form-control" name="mauSac" value="" />
+                        </div>
+                        <div class="form-group col-6">
+                            <label class="font-weight-bold">Xuất xứ</label>
+                            <input type="text" class="form-control" name="xuatXu" value="" />
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="font-weight-bold">Mã sản phẩm</label>
-                        <input type="text" class="form-control" name="maSanPham"
-                        value="" />
-                    </div>
-                    <div class="form-group">
-                        <label class="font-weight-bold">Tiêu chuẩn</label>
-                        <input type="text" class="form-control" name="tieuChuan"
-                        value=""/>
-                    </div>
-                    <div class="form-group">
-                        <label class="font-weight-bold">Chất liệu</label>
-                        <input type="text" class="form-control" name="chatLieu"
-                        value="" />
-                    </div>
-                    <div class="form-group">
-                        <label class="font-weight-bold">Độ rộng</label>
-                        <input type="text" class="form-control" name="doRong"
-                        value=""/>
-                    </div>
-                    <div class="form-group">
-                        <label class="font-weight-bold">Độ hút nước</label>
-                        <input type="text" class="form-control" name="hutNuoc"
-                        value=""/>
-                    </div>
-                    <div class="form-group">
-                        <label class="font-weight-bold">Màu sắc</label>
-                        <input type="text" class="form-control" name="mauSac"
-                        value=""/>
-                    </div>
-                    <div class="form-group">
-                        <label class="font-weight-bold">Xuất xứ</label>
-                        <input type="text" class="form-control" name="xuatXu"
-                        value=""/>
-                    </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success w-25">Thêm</button>
