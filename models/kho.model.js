@@ -1,10 +1,12 @@
 var db = require('mongoose');
 var Kho = db.model('kho', {
-	id_sanPham: String, 
+    id_sanPham: String,
     soLuong: Number,
     soLuongNhap: Number,
     soLuongTon: Number,
-    ngayNhap: Date, 
+    donGia: Number, 
+    ngayNhap: Date,
+
 });
 
 module.exports = Kho;

@@ -3,7 +3,6 @@ var SanPham = db.model('sanphams', {
     ten: String,
     id_nhaCungCap: String,
 	donVi: String,
-    donGia: Number, 
     kichThuoc: String,
     chungLoai: String,
     cuongDoChiuNen: String,

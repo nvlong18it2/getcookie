@@ -8,7 +8,7 @@ var NhaCungCap = db.model('nhacungcaps', {
     thiTruongChinh: String, 
     doanhThu: String, 
     diaChi: String,  
-    loaiHinh: String,  
+    loaiHinh: String,
 });
 
 module.exports = NhaCungCap;

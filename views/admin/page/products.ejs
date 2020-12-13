@@ -53,7 +53,6 @@ function convert(str) {
                                     <th>Tên</th>
                                     <th>Nhà cung cấp</th>
                                     <th>Đơn vị</th>
-                                    <th>Đơn giá</th>
                                     <th>Kích thước</th>
                                     <th>Chủng loại</th>
                                     <th>Cường độ chịu nén</th>
@@ -74,7 +73,6 @@ function convert(str) {
                                     <td><%- item.ten %></td>
                                     <td><%- item.id_nhaCungCap %> </td>
                                     <td><%- item.donVi %></td>
-                                    <td><%- item.donGia %></td>
                                     <td><%- item.kichThuoc %></td>
                                     <td><%- item.chungLoai %></td>
                                     <td><%- item.cuongDoChiuNen %></td>
@@ -147,12 +145,6 @@ function convert(str) {
                                                         <label class="font-weight-bold">Đơn vị</label>
                                                         <input type="text" class="form-control" name="donVi"
                                                             value="<%- item.donVi %>" />
-                                                    </div>
-                                                    
-                                                    <div class="form-group">
-                                                        <label class="font-weight-bold">Đơn giá</label>
-                                                        <input type="text" class="form-control" name="donGia"
-                                                            value="<%- item.donGia %>" />
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="font-weight-bold">Kích thước</label>
@@ -251,12 +243,6 @@ function convert(str) {
                     <div class="form-group">
                         <label class="font-weight-bold">Đơn vị</label>
                         <input type="text" class="form-control" name="donVi"
-                        value="" />
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="font-weight-bold">Đơn giá</label>
-                        <input type="text" class="form-control" name="donGia"
                         value="" />
                     </div>
                     <div class="form-group">
