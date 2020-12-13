@@ -2,11 +2,6 @@
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 <script>
     $(document).ready(function () {
-        $("button[name='close']").click(function () {
-            $("div.alert").fadeTo(500, 0, function () {
-                $(this).remove();
-            });
-        });
     });
 </script>
 <% 
@@ -43,50 +38,42 @@ function convert(str) {
                 <% } %>
                 <div class="card">
                     <div class="card-header row m-0">
-                        <strong class="card-title col-6 m-0 p-0" style="margin-top: 9px !important;">DANH SÁCH NHÀ CUNG CẤP</strong>
+                        <strong class="card-title col-6 m-0 p-0" style="margin-top: 9px !important;">QUẢN LÝ KHO</strong>
                         <div class="col-6 text-right m-0 p-0">
                             <button class="rounded rounded-circle btn btn-success" data-toggle="modal"
                                 data-target="#add"><i class="fa fa-plus"></i>
                             </button>
                         </div>
+
                     </div>
                     <div class="card-body pl-0 ml-0 mr-0 pr-0">
                         <table id="bootstrap-data-table" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th>Tên</th>
-                                    <th>Ngày tham gia</th>
-                                    <th>Người đại diện</th>
-                                    <th>Sản phẩm chính</th>
-                                    <th>Năm thành lập</th>
-                                    <th>Thị trường chính</th>
-                                    <th>Tổng doanh thu (năm gần nhất)</th>
-                                    <th>Địa chỉ</th>
-                                    <th>Loại hình doanh nghiệp</th>
-                                    <th></th>
+                                    <th>Số Lượng</th>
+                                    <th>Số lượng nhập</th>
+                                    <th>Số lượng tồn</th>
+                                    <th>Kích thước</th>
+                                    <th>Ngày nhập</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <% nhaCungCap.forEach(function(item) { %>
+                                <% kho.forEach(function(item) { %>
                                 <tr id="<%= item.id %>">
-                                    <td><%- item.ten %></td>
-                                    <td><%- setDate(item.ngayThamGia) %> </td>
-                                    <td><%- item.nguoiDaiDien %></td>
-                                    <td><%- item.sanPhamChinh %></td>
-                                    <td><%- item.namThanhLap %></td>
-                                    <td><%- item.thiTruongChinh %></td>
-                                    <td><%- item.doanhThu %></td>
-                                    <td><%- item.diaChi %></td>
-                                    <td><%- item.loaiHinh %></td>
-
+                                    <td><%- item.id_sanPham %></td>
+                                    <td><%- item.soLuong %> </td>
+                                    <td><%- item.soLuongNhap %></td>
+                                    <td><%- item.soLuongTon %></td>
+                                    <td><%- setDate(item.ngayNhap) %></td>
+                                    
                                     <td>
                                         <a value="<%- item._id %>" data-toggle="modal"
                                             data-target="#exampleModal<%- item._id %>"
                                             class="btn btn-warning text-light pt-1 pb-1 pr-2 pl-2 mb-1"><i
                                                 class="fa fa-pencil-square"></i></a>
-                                        <a class="btn btn-danger text-light pt-1 pb-1 pr-2 pl-2 mb-1"
-                                            data-toggle="modal" data-target="#Modal<%- item._id %>"><i
-                                                class="fa fa-trash-o"></i></a>
+                                        <a class="btn btn-danger text-light pt-1 pb-1 pr-2 pl-2 mb-1" data-toggle="modal"
+                                            data-target="#Modal<%- item._id %>"><i class="fa fa-trash-o"></i></a>
                                     </td>
                                 </tr>
                                 <div class="modal fade" id="Modal<%- item._id %>" tabindex="-1" role="dialog"
@@ -94,7 +81,7 @@ function convert(str) {
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title d-inline" id="exampleModalLabel">Xóa nhà cung cấp
+                                                <h5 class="modal-title d-inline" id="exampleModalLabel">Xóa sản phẩm
                                                 </h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
@@ -102,12 +89,12 @@ function convert(str) {
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                Xóa nhà cung cấp <%- item.ten %>
+                                                Xóa sản phẩm <%- item.ten %>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
                                                     data-dismiss="modal">Hủy</button>
-                                                <a href="/admin/delete/NhaCungCap/<%- item._id %>"
+                                                <a href="/admin/delete/Kho/<%- item._id %>"
                                                     class="btn btn-danger">Xóa</a>
                                             </div>
                                         </div>
@@ -118,66 +105,43 @@ function convert(str) {
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title d-inline" id="exampleModalLabel">Chỉnh sủa nhà
-                                                    cung cấp</h5>
+                                                <h5 class="modal-title d-inline" id="exampleModalLabel">Chỉnh sửa sản phẩm</h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <form class="p-2" method="post" action="/admin/suppliers/edit">
+                                            <form class="p-2" method="post" action="/admin/warehouse/edit">
                                                 <div class="modal-body">
                                                     <div class="form-group">
-                                                        <label class="font-weight-bold">Tên nhà cung cấp</label>
-                                                        <input type="text" class="form-control" name="ten"
-                                                            value="<%- item.ten %>" />
+                                                        <label class="font-weight-bold">Tên sản phẩm</label>
+                                                        <input type="text" class="form-control" name="id_sanPham"
+                                                            value="<%- item.id_sanPham %>" />
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="font-weight-bold">Ngày tham gia</label>
-                                                        <input type="date" class="form-control" name="ngayThamGia"
-                                                            value="<%= convert(item.ngayThamGia) %>" />
+                                                        <label class="font-weight-bold">Số lượng</label>
+                                                        <input type="text" class="form-control" name="soLuong"
+                                                            value="<%- item.soLuong %>" />
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="font-weight-bold">Người đại diện</label>
-                                                        <input type="text" class="form-control" name="nguoiDaiDien"
-                                                            value="<%- item.nguoiDaiDien%>" />
+                                                        <label class="font-weight-bold">Số lượng nhập</label>
+                                                        <input type="text" class="form-control" name="soLuongNhap"
+                                                            value="<%- item.soLuongNhap %>" />
+                                                    </div>
+                                                    
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold">Số lượng tồn</label>
+                                                        <input type="text" class="form-control" name="soLuongTon"
+                                                            value="<%- item.soLuongTon %>" />
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="font-weight-bold">Sản phẩm chính</label>
-                                                        <input type="text" class="form-control" name="sanPhamChinh"
-                                                            value="<%- item.sanPhamChinh %>" />
+                                                        <label class="font-weight-bold">Ngày nhập</label>
+                                                        <input type="date" class="form-control" name="ngayNhap"
+                                                            value="<%= convert(item.ngayNhap) %>" />
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label class="font-weight-bold">Năm thành lập</label>
-                                                        <input type="text" class="form-control" name="namThanhLap"
-                                                            value="<%= item.namThanhLap%>" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="font-weight-bold">Thị trường chính</label>
-                                                        <input type="text" class="form-control" name="thiTruongChinh"
-                                                            value="<%- item.thiTruongChinh %>" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="font-weight-bold">Tổng doanh thu (năm gần
-                                                            nhất)</label>
-                                                        <input type="text" class="form-control" name="doanhThu"
-                                                            value="<%- item.doanhThu %>" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="font-weight-bold">Địa chỉ</label>
-                                                        <input type="text" class="form-control" name="diaChi"
-                                                            value="<%- item.diaChi %>" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="font-weight-bold">Loại hình doanh nghiệp</label>
-                                                        <input type="text" class="form-control" name="loaiHinh"
-                                                            value="<%- item.loaiHinh %>" />
-                                                    </div>
-
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button value="<%= item._id %>" type="submit" name="edit"
-                                                        class="btn btn-success w-25">Sửa</button>
+                                                    <button value="<%= item._id %>" type="submit" name="edit" class="btn btn-success w-25">Sửa</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -202,44 +166,33 @@ function convert(str) {
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form class="p-2" method="post" action="/admin/suppliers/add">
+            <form class="p-2" method="post" action="/admin/warehouse/add">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="font-weight-bold">Tên nhà cung cấp</label>
-                        <input type="text" class="form-control" name="ten" value="" />
-                    </div>
-                    <div class="form-group">
-                        <label class="font-weight-bold">Ngày tham gia</label>
-                        <input type="date" class="form-control" name="ngayThamGia" value="" />
-                    </div>
-                    <div class="form-group">
-                        <label class="font-weight-bold">Người đại diện</label>
-                        <input type="text" class="form-control" name="nguoiDaiDien" value="" />
-                    </div>
-                    <div class="form-group">
-                        <label class="font-weight-bold">Sản phẩm chính</label>
-                        <input type="text" class="form-control" name="sanPhamChinh" value="" />
-                    </div>
-                    <div class="form-group">
-                        <label class="font-weight-bold">Năm thành lập</label>
-                        <input type="text" class="form-control" name="namThanhLap" value="" />
-                    </div>
-                    <div class="form-group">
-                        <label class="font-weight-bold">Thị trường chính</label>
-                        <input type="text" class="form-control" name="thiTruongChinh" value="" />
-                    </div>
-                    <div class="form-group">
-                        <label class="font-weight-bold">Tổng doanh thu (năm gần nhất)</label>
-                        <input type="text" class="form-control" name="doanhThu" value="" />
-                    </div>
-                    <div class="form-group">
-                        <label class="font-weight-bold">Địa Chỉ</label>
-                        <input type="text" class="form-control" name="diaChi""
+                        <label class="font-weight-bold">Tên sản phẩm</label>
+                        <input type="text" class="form-control" name="id_sanPham"
                             value="" />
                     </div>
-                    <div class=" form-group">
-                        <label class="font-weight-bold">Loại hình doanh nghiệp</label>
-                        <input type="text" class="form-control" name="loaiHinh" value="" />
+                    <div class="form-group">
+                        <label class="font-weight-bold">Số lượng</label>
+                        <input type="text" class="form-control" name="soLuong"
+                            value="" />
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold">Số lượng nhập</label>
+                        <input type="text" class="form-control" name="soLuongNhap"
+                            value="" />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="font-weight-bold">Số lượng tồn</label>
+                        <input type="text" class="form-control" name="soLuongTon"
+                            value="" />
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold">Ngày nhập</label>
+                        <input type="date" class="form-control" name="ngayNhap"
+                            value="" />
                     </div>
 
                 </div>
