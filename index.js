@@ -31,6 +31,7 @@ app.use(bodyParser.json())
 
 http.listen(port, () => console.log(`App listening at http://localhost:${port}`));
 
+   
 mongoose.connect(process.env.DB_URL, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true

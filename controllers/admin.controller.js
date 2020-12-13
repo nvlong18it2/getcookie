@@ -68,7 +68,7 @@ module.exports = {
             }).catch(err => console.log(err));
     },
 
-    addProducts: (req, res) => {
+    addProducts:  async (req, res) => {
         new SanPham(req.body).save().then((sanPham) => {
             if (sanPham) {
                 res.cookie('thongBao', "Thêm Thành Công", {
@@ -82,6 +82,9 @@ module.exports = {
             });
             res.redirect("/admin/products");
         });
+        // var sp = await new SanPham(req.body);
+        // console.log(sp);
+        // res.redirect("/admin/products");
     },
 
     editProducts: (req, res) => {
