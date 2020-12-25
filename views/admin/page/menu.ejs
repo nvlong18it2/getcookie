@@ -1,23 +1,30 @@
+<%
+function setActive(active,page) {
+    if (active == page) {
+        return "active";
+    }
+}
+%>
 <aside id="left-panel" class="left-panel">
     <nav class="navbar navbar-expand-sm navbar-default">
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active">
+                <li class="<%- setActive("index",page) %>">
                     <a href="/admin"><i class="menu-icon fa fa-laptop"></i>Tổng Quan</a>
                 </li>
-                <li class="">
+                <li class="<%- setActive("user",page) %>">
                     <a href="/admin/user"> <i class="menu-icon fa fa-cogs"></i>Quản lý tài khoản</a>                          
                 </li>
-                <li class="">
+                <li class="<%- setActive("staff",page) %>">
                     <a href="/admin/staff"> <i class="menu-icon fa fa-cogs"></i>Quản lý nhân viên</a>                          
                 </li>
-                <li class="">
+                <li class="<%- setActive("products",page) %>">
                     <a href="/admin/products"> <i class="menu-icon fa fa-cogs"></i>Quản lý sản phẩm</a>                          
                 </li>
-                <li class="">
+                <li class="<%- setActive("warehouse",page) %>">
                     <a href="/admin/warehouse"> <i class="menu-icon fa fa-cogs"></i>Quản lý kho</a>                          
                 </li>
-                <li class="">
+                <li class="<%- setActive("suppliers",page) %>">
                     <a href="/admin/suppliers"> <i class="menu-icon fa fa-cogs"></i>Nhà cung cấp</a>                          
                 </li>
                 <li class="menu-item-has-children dropdown">
