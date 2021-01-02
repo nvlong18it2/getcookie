@@ -3,7 +3,7 @@ var NhaCungCap = db.model('nhacungcaps', {
 	ten: String, 
     ngayThamGia: Date, 
     nguoiDaiDien: String, 
-    sanPhamChinh: String, 
+    sanPhamChinh: Array, 
     namThanhLap: String, 
     thiTruongChinh: String, 
     doanhThu: String, 

@@ -1,7 +1,7 @@
 var db = require('mongoose');
 var SanPham = db.model('sanphams', {
     ten: String,
-    id_nhaCungCap: String,
+    giaSanPham: Number,
 	donVi: String,
     kichThuoc: String,
     chungLoai: String,
@@ -14,7 +14,6 @@ var SanPham = db.model('sanphams', {
     hutNuoc: String,
     mauSac: String,
     xuatXu: String,
-
 });
 
 module.exports = SanPham;
