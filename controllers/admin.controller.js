@@ -21,6 +21,7 @@ module.exports = {
                     thongBao: res.locals.thongBao,
                 })
             }).catch(err => console.log(err));
+            
     },
 
     addStaff: (req, res) => {
